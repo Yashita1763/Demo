@@ -5,10 +5,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Huddle Landing Page</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="styles.css">
     </head>
 
     <body>
+
 
         <header>
 
@@ -34,7 +38,7 @@
                 </div>
             </div>
         </header>
-
+    
         <div class="feature-container">
             <section class="feature-block">
                 <img class="block1" src="illustration-grow-together.svg" alt="Feature Image 1">
@@ -68,8 +72,19 @@
                 </div>
             </section>
         </div>
-
-        <!-- Add more alternating sections as needed -->
+        <main id="carousel">
+            <img src="4886398.jpg" data-desc="In the woods" class="active">
+            <img src="6294034.jpg" data-desc="Meadows">
+            <img src="5471.jpg" data-desc="Boat">
+            <div id="nav">
+                <div id="desc"></div>
+                <div id="dots">
+                 
+                </div>
+            </div>
+        </div>
+        </main>
+        
 
         <footer>
 
@@ -125,5 +140,50 @@
         </footer>
 
     </body>
+    <script>
+        const images=document.querySelectorAll('#carousel img');
+        const dots=document.querySelector('#dots');
+        const desc=document.querySelector('#desc');
+
+        let speed=3000;
+        let index=0;
+        let intervalID;
+        images.forEach((image, i)=> {
+            const span =document.createElement('span');
+            span.className='dot';
+            if(i==0) span.classList.add('active');
+            span.addEventListener('click', () =>{
+                index=i;
+                startInterval();
+                updateContent();
+
+            });
+            dots.appendChild(span);
+        })
+        
+
+        startInterval();
+        function startInterval(){
+            if(intervalID) clearInterval(intervalID);
+            intervalID= setInterval(() => {
+                index++;
+                if(index == images.length) index=0;
+                updateContent();
+            },speed)
+
+        }
+        updateContent();
+        function updateContent(){
+
+            images.forEach(item => item.classList.remove('active')) 
+            images[index].classList.add('active');
+
+            const dots=document.querySelectorAll('.dot');
+            dots.forEach(item => item.classList.remove('active'))
+            dots[index].classList.add('active');
+
+            
+        }
+    </script>
 
     </html>
